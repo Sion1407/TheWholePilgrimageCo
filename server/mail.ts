@@ -1,3 +1,6 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 import nodemailer from "nodemailer";
 
 const transporter = nodemailer.createTransport({
@@ -10,8 +13,9 @@ const transporter = nodemailer.createTransport({
 
 export async function sendContactEmail(data: any) {
   await transporter.sendMail({
-    from: "samratdhanashreeutube@gmail.com",
-    to: "samratdhanashreeutube@gmail.com",
+    from: process.env.EMAIL_USER,
+    to: process.env.EMAIL_USER,
+    replyTo: data.email,
     subject: "New Contact Message - Wholesome Pilgrims",
     text: `
 Name: ${data.firstName} ${data.lastName}
@@ -19,6 +23,6 @@ Email: ${data.email}
 
 Message:
 ${data.message}
-    `,
+`,
   });
 }
