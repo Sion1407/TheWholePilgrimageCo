@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Instagram, Youtube, ArrowDown } from "lucide-react";
-import heroImg from "@assets/image_1772982996419.png";
+import heroImg from "@assets/Image1.png";
 import aboutImg from "@assets/AboutUs.png";
 import { ContactForm } from "@/components/ContactForm";
 import { AirbnbSection } from "@/components/AirbnbSection";
