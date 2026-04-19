@@ -3,6 +3,7 @@ import { Instagram, Youtube, ArrowDown } from "lucide-react";
 import heroImg from "@assets/image_1772982996419.png";
 import aboutImg from "@assets/AboutUs.png";
 import { ContactForm } from "@/components/ContactForm";
+import { AirbnbSection } from "@/components/AirbnbSection";
 
 // Framer motion variants for elegant reveals
 const fadeInUp = {
@@ -29,6 +30,7 @@ export default function Home() {
 
         <div className="hidden md:flex gap-8 text-sm tracking-widest uppercase">
           <a href="#about" className="hover:opacity-70 transition-opacity">About</a>
+          <a href="#our-place" className="hover:opacity-70 transition-opacity">Our Place</a>
           <a href="#contact" className="hover:opacity-70 transition-opacity">Contact</a>
         </div>
       </nav>
@@ -80,7 +82,7 @@ export default function Home() {
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2, duration: 1 }}
           onClick={() => {
-            const aboutSection = document.getElementById('about');
+            const aboutSection = document.getElementById('airbnb');
             aboutSection?.scrollIntoView({ behavior: 'smooth' });
           }}
           className="absolute bottom-10 z-20 text-white flex flex-col items-center cursor-pointer hover:opacity-70 transition-opacity"
@@ -139,6 +141,11 @@ export default function Home() {
             </motion.div>
           </div>
         </motion.div>
+      </section>
+
+      {/* Airbnb Place Carousel Section */}
+      <section id="airbnb">
+        <AirbnbSection airbnbUrl="https://www.airbnb.co.uk/rooms/1663135839790724244?unique_share_id=77452299-142a-472a-92e0-51611cbac99d&viralityEntryPoint=1&s=76" />
       </section>
 
       {/* Quote / Divider Section */}
