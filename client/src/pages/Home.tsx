@@ -5,17 +5,17 @@ import aboutImg from "@assets/AboutUs.png";
 import { ContactForm } from "@/components/ContactForm";
 import { AirbnbSection } from "@/components/AirbnbSection";
 
-// Framer motion variants for elegant reveals
+// Framer motion variants for elegant reveals (slower, more editorial)
 const fadeInUp = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.2, 0.65, 0.3, 0.9] } }
+  hidden: { opacity: 0, y: 48 },
+  visible: { opacity: 1, y: 0, transition: { duration: 1.2, ease: [0.2, 0.65, 0.3, 0.9] } }
 };
 
 const staggerContainer = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.2 }
+    transition: { staggerChildren: 0.25, delayChildren: 0.1 }
   }
 };
 
@@ -36,18 +36,20 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative h-screen w-full flex flex-col items-center justify-center text-center px-4">
-        {/* Background Image with elegant wash */}
-        <div className="absolute inset-0 z-0">
-          <motion.div 
-            initial={{ scale: 1.05 }}
+      <section className="relative h-screen w-full flex flex-col items-center justify-center text-center px-4 overflow-hidden">
+        {/* Background Image with elegant wash + slow ken-burns + film grain */}
+        <div className="absolute inset-0 z-0 film-grain">
+          <motion.div
+            initial={{ scale: 1.08 }}
             animate={{ scale: 1 }}
-            transition={{ duration: 1.5, ease: "easeOut" }}
+            transition={{ duration: 12, ease: "easeOut" }}
             className="w-full h-full"
           >
-            <img 
-              src={heroImg} 
-              alt="Beautiful scenic landscape" 
+            <img
+              src={heroImg}
+              alt="Beautiful scenic landscape"
+              {...({ fetchpriority: "high" } as any)}
+              decoding="async"
               className="w-full h-full object-cover object-center"
             />
           </motion.div>
@@ -109,11 +111,15 @@ export default function Home() {
           {/* Image */}
           <motion.div variants={fadeInUp} className="relative aspect-[4/5] w-full">
             <div className="absolute inset-0 bg-primary/5 translate-x-4 translate-y-4 -z-10" />
-            <img 
-              src={aboutImg} 
-              alt="Dhanashree & Samrat" 
-              className="w-full h-full object-cover shadow-2xl shadow-foreground/5"
-            />
+            <div className="img-hover-zoom w-full h-full">
+              <img
+                src={aboutImg}
+                alt="Dhanashree & Samrat"
+                loading="lazy"
+                decoding="async"
+                className="w-full h-full object-cover shadow-2xl shadow-foreground/5"
+              />
+            </div>
           </motion.div>
 
           {/* Text Content */}

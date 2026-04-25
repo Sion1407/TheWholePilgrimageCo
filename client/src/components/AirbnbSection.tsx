@@ -9,7 +9,6 @@ import place2 from "@assets/Image2.png";;
 import place3 from "@assets/Image3.png";;
 import place4 from "@assets/Image4.png";;
 import place5 from "@assets/Image5.png";;
-import place7 from "@assets/Image7.png";;
 
 const images = [
   { src: place1, alt: "Airbnb place photo 1" },
@@ -17,7 +16,6 @@ const images = [
   { src: place3, alt: "Airbnb place photo 3" },
   { src: place4, alt: "Airbnb place photo 4" },
   { src: place5, alt: "Airbnb place photo 5" },
-  { src: place7, alt: "Airbnb place photo 7" },
 ];
 
 const fadeInUp = {
@@ -63,7 +61,7 @@ export function AirbnbSection({ airbnbUrl = "https://www.airbnb.com" }: AirbnbSe
   }, [emblaApi, onSelect]);
 
   return (
-    <section id="our-place" className="pt-8 pb-24 md:pt-10 md:pb-32 px-6 md:px-12 lg:px-24 max-w-[1400px] mx-auto">
+    <section id="our-place" className="py-24 md:py-32 px-6 md:px-12 lg:px-24 max-w-[1400px] mx-auto">
       <motion.div
         initial="hidden"
         whileInView="visible"
@@ -105,13 +103,19 @@ export function AirbnbSection({ airbnbUrl = "https://www.airbnb.com" }: AirbnbSe
                   key={idx}
                   className="flex-[0_0_85%] md:flex-[0_0_60%] lg:flex-[0_0_48%] min-w-0 relative"
                 >
-                  <div className="relative aspect-[4/3] w-full overflow-hidden">
+                  <div className="img-hover-zoom relative aspect-[4/3] w-full">
                     <img
                       src={img.src}
                       alt={img.alt}
-                      className={`w-full h-full object-cover transition-all duration-500 ${
-                        idx === selectedIndex ? "opacity-100 scale-100" : "opacity-60 scale-[0.98]"
+                      loading="lazy"
+                      decoding="async"
+                      className={`w-full h-full object-cover ${
+                        idx === selectedIndex ? "opacity-100" : "opacity-60"
                       }`}
+                      style={{
+                        transition:
+                          "opacity 900ms cubic-bezier(0.2, 0.65, 0.3, 0.9), transform 1400ms cubic-bezier(0.2, 0.65, 0.3, 0.9), filter 1400ms cubic-bezier(0.2, 0.65, 0.3, 0.9)",
+                      }}
                     />
                     {/* Slide number */}
                     <div className="absolute bottom-4 right-4 bg-background/80 backdrop-blur-sm px-3 py-1 text-xs tracking-widest text-foreground/60 uppercase font-mono">
