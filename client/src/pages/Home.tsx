@@ -4,6 +4,8 @@ import heroImg from "@assets/Image1.png";
 import aboutImg from "@assets/AboutUs.png";
 import { ContactForm } from "@/components/ContactForm";
 import { AirbnbSection } from "@/components/AirbnbSection";
+import { FaWhatsapp } from "react-icons/fa";
+
 
 // Framer motion variants for elegant reveals (slower, more editorial)
 const fadeInUp = {
@@ -205,6 +207,17 @@ export default function Home() {
                     <Youtube className="w-5 h-5" />
                   </div>
                   <span className="text-lg tracking-wide group-hover:pl-2 transition-all duration-300">YouTube</span>
+                </a>
+                <a
+                  href="https://wa.me/+918262803991"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-4 group w-fit"
+                >
+                  <div className="w-12 h-12 rounded-full border border-foreground/20 flex items-center justify-center group-hover:bg-foreground group-hover:text-background transition-all duration-300">
+                    <FaWhatsapp className="w-5 h-5" />
+                  </div>
+                  <span className="text-lg tracking-wide group-hover:pl-2 transition-all duration-300">WhatsApp</span>
                 </a>
               </div>
             </div>
