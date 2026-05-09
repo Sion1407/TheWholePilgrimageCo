@@ -1,30 +1,37 @@
 import nodemailer from "nodemailer";
-import dns from "dns";
+import dns from "dns/promises";
+
+async function resolveIPv4(hostname: string): Promise<string> {
+  const addresses = await dns.resolve4(hostname);
+  if (!addresses.length) throw new Error(`No IPv4 address found for ${hostname}`);
+  return addresses[0];
+}
 
 export async function sendContactEmail(data: any) {
   const user = process.env.EMAIL_USER;
   const pass = process.env.EMAIL_PASSWORD;
-  console.log("Printing creds: "+process.env.EMAIL_USER+" "+process.env.EMAIL_PASSWORD);
+
   if (!user || !pass) {
     throw new Error(
       `Email credentials missing. EMAIL_USER=${user ? "set" : "MISSING"}, EMAIL_PASSWORD=${pass ? "set" : "MISSING"}`
     );
   }
 
+  // Resolve Gmail SMTP to IPv4 first — prevents ENETUNREACH on hosts without IPv6 outbound (e.g. Render)
+  const smtpHost = await resolveIPv4("smtp.gmail.com");
+
   const transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
+    host: smtpHost,
     port: 587,
     secure: false,
     requireTLS: true,
     auth: { user, pass },
-    // Force IPv4 — prevents ENETUNREACH on servers without IPv6 outbound
-    lookup: (hostname: string, options: any, callback: any) => {
-      dns.lookup(hostname, { ...options, family: 4 }, callback);
-    },
     tls: {
+      // Must supply servername because we connect via IP, not hostname
+      servername: "smtp.gmail.com",
       rejectUnauthorized: true,
     },
-  } as any);
+  });
 
   await transporter.sendMail({
     from: `"The Wholesome Pilgrims Co." <${user}>`,
